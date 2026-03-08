@@ -38,6 +38,10 @@ curl -X POST "http://localhost:8080/v1/driver-locations/batch" \
 ```
 
 CSV import:
+
+Example CSV file:
+https://raw.githubusercontent.com/Zeyneppsevgi/Bitaksi-golang-developer-case/main/driver-location-service/data/sample_drivers.csv
+
 ```bash
 curl -X POST "http://localhost:8080/v1/driver-locations/import" \
   -H "X-Internal-Api-Key: some-secret" \
@@ -53,7 +57,7 @@ curl "http://localhost:8080/v1/driver-locations/search?lon=29.0&lat=41.0&radius_
 ## Migrations / Seed
 - Index migration runs automatically on startup (`2dsphere + unique(driverId)`).
 - In operational scenarios, dummy data can be imported via the API.
-- Tek başına servis için opsiyonel seed:
+- Optional seed data for standalone service:
   - `SEED_ON_START=true`
   - `SEED_FILE=data/drivers.csv`
 
