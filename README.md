@@ -12,7 +12,6 @@ docker compose up --build
 ```
 
 ## Endpoints
-- Token: `http://localhost:8080/v1/token`
 - Driver health: `http://localhost:8080/healthz`
 - Driver docs: `http://localhost:8080/docs/index.html`
 - Matching health: `http://localhost:8081/healthz`
