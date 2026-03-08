@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/matching-service/internal/core/domain"
 	"github.com/matching-service/internal/core/usecase"
+	"github.com/matching-service/pkg/jwtgen"
 	"github.com/matching-service/pkg/response"
 )
 
@@ -62,4 +63,17 @@ func (h *Handler) Match(c fiber.Ctx) error {
 		}
 	}
 	return c.JSON(response.Success(match))
+}
+
+func (h *Handler) GenerateToken(c fiber.Ctx) error {
+
+	token, err := jwtgen.Generator()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).
+			JSON(response.Failure("INTERNAL", err.Error(), nil))
+	}
+
+	return c.JSON(response.Success(map[string]string{
+		"token": token,
+	}))
 }

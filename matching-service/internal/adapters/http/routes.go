@@ -14,4 +14,6 @@ func Register(app *fiber.App, h *Handler, auth fiber.Handler) {
 
 	v1 := app.Group("/v1", auth)
 	v1.Get("/match", h.Match)
+	v1.Get("/token", h.GenerateToken)
+
 }

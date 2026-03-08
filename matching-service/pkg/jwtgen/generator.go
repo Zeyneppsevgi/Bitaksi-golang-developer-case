@@ -1,20 +1,22 @@
-package main
+package jwtgen
 
 import (
-	"fmt"
 	"time"
 
 	jwtv5 "github.com/golang-jwt/jwt/v5"
 )
 
-func main() {
+func Generator() (string, error) {
+
 	token := jwtv5.NewWithClaims(jwtv5.SigningMethodHS256, jwtv5.MapClaims{
 		"authenticated": true,
 		"exp":           time.Now().Add(24 * time.Hour).Unix(),
 	})
+
 	signed, err := token.SignedString([]byte("user-secret"))
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	fmt.Println(signed)
+
+	return signed, nil
 }
