@@ -11,7 +11,7 @@ cd ops
 docker compose up --build
 ```
 
-## Endpointler
+## Endpoints
 - Driver health: `http://localhost:8080/healthz`
 - Driver docs: `http://localhost:8080/docs/index.html`
 - Matching health: `http://localhost:8081/healthz`
