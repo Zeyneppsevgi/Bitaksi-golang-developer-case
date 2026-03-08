@@ -12,8 +12,8 @@ func Register(app *fiber.App, h *Handler, auth fiber.Handler) {
 	app.Get("/openapi.json", h.OpenAPIJSON)
 	app.Get("/docs/*", adaptor.HTTPHandler(httpSwagger.Handler(httpSwagger.URL("/openapi.json"))))
 
+	app.Get("/v1/token", h.GenerateToken)
 	v1 := app.Group("/v1", auth)
 	v1.Get("/match", h.Match)
-	v1.Get("/token", h.GenerateToken)
 
 }
