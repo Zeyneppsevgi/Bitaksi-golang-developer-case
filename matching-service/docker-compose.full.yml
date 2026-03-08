@@ -1,0 +1,32 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+
+  driver-location-service:
+    build:
+      context: ../driver-location-service
+      dockerfile: Dockerfile
+    environment:
+      DRIVER_PORT: "8080"
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: driver_location
+      MONGO_COLLECTION: driver_locations
+      INTERNAL_API_KEY: some-secret
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+
+  matching-service:
+    build: .
+    environment:
+      MATCHING_PORT: "8081"
+      DRIVER_LOCATION_BASE_URL: http://driver-location-service:8080
+      INTERNAL_API_KEY: some-secret
+      USER_JWT_SECRET: user-secret
+    depends_on:
+      - driver-location-service
+    ports:
+      - "8081:8081"

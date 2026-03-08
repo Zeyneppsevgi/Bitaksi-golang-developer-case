@@ -1,0 +1,42 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ..
+      dockerfile: ops/Dockerfile
+    environment:
+      DRIVER_PORT: "8080"
+      MATCHING_PORT: "8081"
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: driver_location
+      MONGO_COLLECTION: driver_locations
+      INTERNAL_API_KEY: some-secret
+      USER_JWT_SECRET: user-secret
+      DRIVER_LOCATION_BASE_URL: http://127.0.0.1:8080
+      AUTO_SEED: "true"
+      SEED_FILE: /app/driver/data/drivers.csv
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8081/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo_data:

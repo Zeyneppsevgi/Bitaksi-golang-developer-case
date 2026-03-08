@@ -1,0 +1,15 @@
+services:
+  matching-service:
+    build: .
+    environment:
+      MATCHING_PORT: "8081"
+      DRIVER_LOCATION_BASE_URL: http://host.docker.internal:8080
+      INTERNAL_API_KEY: some-secret
+      USER_JWT_SECRET: user-secret
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8081/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
