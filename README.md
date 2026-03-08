@@ -1,20 +1,14 @@
 # ops
 
-Varsayılan compose ile servisler ayrı container olarak çalışır:
+In the default compose setup, services run in separate containers:
 - `mongo`
 - `driver-location-service`
 - `matching-service`
 
-## Ayrı container çalıştırma (önerilen)
+## Run the Full Stack with Docker Compose
 ```bash
 cd ops
 docker compose up --build
-```
-
-## Tek container (opsiyonel)
-```bash
-cd ops
-docker compose -f docker-compose.single.yml up --build
 ```
 
 ## Endpointler
