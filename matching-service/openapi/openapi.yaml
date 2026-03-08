@@ -16,10 +16,15 @@ paths:
       summary: Health
       responses:
         '200': { description: OK }
+  /v1/token:
+    get:
+      summary: Generate a test JWT token
+      responses:
+        '200': { description: Token generated }
+        '500': { description: Internal server error }
   /v1/match:
     get:
       summary: Match nearest driver
-      description: JWT payload must include authenticated=true.
       security: [{ BearerAuth: [] }]
       parameters:
         - in: query

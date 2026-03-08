@@ -12,20 +12,26 @@ docker compose up --build
 - OpenAPI JSON: `http://localhost:8081/openapi.json`
 - Swagger UI: `http://localhost:8081/docs/index.html`
 
-## Endpoint
+## Endpoints
+- `GET /v1/token`
 - `GET /v1/match?lon=...&lat=...&radius_m=...` (Bearer JWT gerekli)
 
 ## Generate JWT
+JWT üretmek için `/v1/token` endpoint'ini kullanabilir veya tool'u çalıştırabilirsiniz:
 ```bash
 go run ./tools/jwtgen
 ```
 
 ## Example request
 ```bash
-TOKEN="<token>"
+# Token al
+TOKEN=$(curl -s http://localhost:8081/v1/token | jq -r .data.token)
+
+# Match isteği
 curl "http://localhost:8081/v1/match?lon=29.0&lat=41.0&radius_m=3000" \
   -H "Authorization: Bearer ${TOKEN}"
 ```
+
 
 ## Full stack run
 - Aynı container içinde iki servis için: `../ops/docker-compose.yml`
