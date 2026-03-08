@@ -19,9 +19,6 @@ docker compose up --build
 ## Generate JWT
 Use the `/v1/token` endpoint to generate a JWT.
 
-```bash
-go run ./tools/jwtgen
-```
 
 ## Example request
 ```bash
