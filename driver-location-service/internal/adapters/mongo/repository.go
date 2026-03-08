@@ -25,7 +25,6 @@ func (r *Repository) CreateIndexes(ctx context.Context) error { return createInd
 
 func (r *Repository) Ping(ctx context.Context) error { return r.client.Ping(ctx, readpref.Primary()) }
 
-// her sürücü için tek tek veritabanına gitmek yerine mongo.WriteModel kullanarak tüm listeyi tek bir seferde (batch) MongoDB'ye gönderir. Bu, performans için hayati önem taşır.
 func (r *Repository) BulkUpsertLocations(ctx context.Context, items []domain.DriverLocation) (ports.UpsertResult, error) {
 	models := make([]mongo.WriteModel, 0, len(items))
 	for _, item := range items {
