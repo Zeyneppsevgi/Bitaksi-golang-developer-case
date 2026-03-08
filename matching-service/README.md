@@ -14,10 +14,11 @@ docker compose up --build
 
 ## Endpoints
 - `GET /v1/token`
-- `GET /v1/match?lon=...&lat=...&radius_m=...` (Bearer JWT gerekli)
+- `GET /v1/match?lon=...&lat=...&radius_m=...` (Bearer JWT required)
 
 ## Generate JWT
-JWT üretmek için `/v1/token` endpoint'ini kullanabilir veya tool'u çalıştırabilirsiniz:
+Use the `/v1/token` endpoint to generate a JWT.
+
 ```bash
 go run ./tools/jwtgen
 ```
@@ -34,8 +35,8 @@ curl "http://localhost:8081/v1/match?lon=29.0&lat=41.0&radius_m=3000" \
 
 
 ## Full stack run
-- Aynı container içinde iki servis için: `../ops/docker-compose.yml`
-- Alternatif: `docker-compose.full.yml`
+- To run both services in the same container: `../ops/docker-compose.yml`
+- Alternative: `docker-compose.full.yml`
 
 ## Tests
 ```bash
