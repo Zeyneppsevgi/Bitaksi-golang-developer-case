@@ -17,7 +17,6 @@ func NewFindDriver(client ports.DriverLocationClient) *FindDriver {
 	return &FindDriver{client: client}
 }
 
-// En yakınları getir
 func (u *FindDriver) Execute(ctx context.Context, lon, lat float64, radiusM int64, requestID string) (domain.MatchResult, error) {
 	if err := validation.ValidateCoordinates(lon, lat); err != nil {
 		return domain.MatchResult{}, fmt.Errorf("%w: %v", domain.ErrValidation, err)
