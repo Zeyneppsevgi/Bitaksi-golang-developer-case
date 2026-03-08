@@ -22,10 +22,10 @@ Use the `/v1/token` endpoint to generate a JWT.
 
 ## Example request
 ```bash
-# Token al
+
 TOKEN=$(curl -s http://localhost:8081/v1/token | jq -r .data.token)
 
-# Match isteği
+
 curl "http://localhost:8081/v1/match?lon=29.0&lat=41.0&radius_m=3000" \
   -H "Authorization: Bearer ${TOKEN}"
 ```
